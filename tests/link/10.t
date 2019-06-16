@@ -7,14 +7,14 @@ desc="link returns EEXIST if the destination file does exist"
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..23"
+echo "1..11"
 
 n0=`namegen`
 n1=`namegen`
 
 expect 0 create ${n0} 0644
 
-for type in regular dir fifo block char socket symlink; do
+for type in regular dir symlink; do
 	create_file ${type} ${n1}
 	expect EEXIST link ${n0} ${n1}
 	if [ "${type}" = "dir" ]; then

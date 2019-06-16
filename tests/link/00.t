@@ -7,7 +7,7 @@ desc="link creates hardlinks"
 dir=`dirname $0`
 . ${dir}/../misc.sh
 
-echo "1..202"
+echo "1..42"
 
 n0=`namegen`
 n1=`namegen`
@@ -18,7 +18,7 @@ expect 0 mkdir ${n3} 0755
 cdir=`pwd`
 cd ${n3}
 
-for type in regular fifo block char socket; do
+for type in regular; do
 	create_file ${type} ${n0}
 	expect ${type},1 lstat ${n0} type,nlink
 
@@ -55,7 +55,7 @@ for type in regular fifo block char socket; do
 done
 
 # successful link(2) updates ctime.
-for type in regular fifo block char socket; do
+for type in regular; do
 	create_file ${type} ${n0}
 	ctime1=`${fstest} stat ${n0} ctime`
 	dctime1=`${fstest} stat . ctime`
@@ -73,7 +73,7 @@ for type in regular fifo block char socket; do
 done
 
 # unsuccessful link(2) does not update ctime.
-for type in regular fifo block char socket; do
+for type in regular; do
 	create_file ${type} ${n0}
 	expect 0 -- chown ${n0} 65534 -1
 	ctime1=`${fstest} stat ${n0} ctime`
