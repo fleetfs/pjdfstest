@@ -304,9 +304,6 @@ create_file() {
 	dir)
 		expect 0 mkdir ${name} 0755
 		;;
-	fifo)
-		expect 0 mkfifo ${name} 0644
-		;;
 	block)
 		expect 0 mknod ${name} b 0644 1 2
 		;;
