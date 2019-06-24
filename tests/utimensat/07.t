@@ -26,8 +26,11 @@ cd ${n1}
 
 create_file regular ${n0} 0644 $UID_ROOT $GID_ROOT
 # First check that nobody can't update the timestamps
+todo Linux "FUSE doesn't support UTIME_NOW properly"
 expect EPERM -u $UID_NOBODY open . O_RDONLY : utimensat 0 ${n0} 0 UTIME_OMIT $DATE2 0 0
+todo Linux "FUSE doesn't support UTIME_NOW properly"
 expect EPERM -u $UID_NOBODY open . O_RDONLY : utimensat 0 ${n0} $DATE1 0 0 UTIME_OMIT 0
+todo Linux "FUSE doesn't support UTIME_NOW properly"
 expect EPERM -u $UID_NOBODY open . O_RDONLY : utimensat 0 ${n0} $DATE1 0 $DATE2 0 0
 
 # Now check that a nonowner with write permission can't update the timestamps
