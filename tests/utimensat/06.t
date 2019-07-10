@@ -37,7 +37,6 @@ expect 0 -u $UID_ROOT open . O_RDONLY : utimensat 0 ${n0} 0 UTIME_OMIT 0 UTIME_O
 # Now check that anyone with write permission can update the timestamps
 expect 0 chown ${n0} $UID_ROOT $GID_ROOT
 expect 0 chmod ${n0} 0666
-todo Linux "FleetFS doesn't support UTIME_NOW checks properly right now"
 expect 0 -u $UID_NOBODY open . O_RDONLY : utimensat 0 ${n0} 0 UTIME_NOW 0 UTIME_NOW 0
 
 expect 0 unlink ${n0}
