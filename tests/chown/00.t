@@ -216,7 +216,7 @@ for type in regular dir symlink; do
 		sleep 1
 		expect 0 -- chown ${n0} -1 -1
 		ctime2=`${fstest} stat ${n0} ctime`
-		todo Linux "According to POSIX: If both owner and group are -1, the times need not be updated."
+		todo Linux:EXT4 "According to POSIX: If both owner and group are -1, the times need not be updated."
 		test_check $ctime1 -eq $ctime2
 		expect 0,0 stat ${n0} uid,gid
 
@@ -225,7 +225,7 @@ for type in regular dir symlink; do
 		sleep 1
 		expect 0 -- chown ${n1} -1 -1
 		ctime2=`${fstest} stat ${n1} ctime`
-		todo Linux "According to POSIX: If both owner and group are -1, the times need not be updated."
+		todo Linux:EXT4 "According to POSIX: If both owner and group are -1, the times need not be updated."
 		test_check $ctime1 -eq $ctime2
 		expect 0,0 stat ${n1} uid,gid
 		expect 0 unlink ${n1}
@@ -243,7 +243,7 @@ for type in regular dir symlink; do
 	sleep 1
 	expect 0 -- lchown ${n0} -1 -1
 	ctime2=`${fstest} lstat ${n0} ctime`
-	todo Linux "According to POSIX: If both owner and group are -1, the times need not be updated."
+	todo Linux:EXT4 "According to POSIX: If both owner and group are -1, the times need not be updated."
 	test_check $ctime1 -eq $ctime2
 	expect 0,0 lstat ${n0} uid,gid
 
