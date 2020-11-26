@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest ]
+        compiler: [ clang, gcc ]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        if: ${{ runner.os == 'macOS' }}
+        run: brew install autoconf automake libtool
+      - name: Run tests
+        env:
+          CC: ${{ matrix.compiler }}
+          CXX: ${{ matrix.compiler }}
+        run: |
+          ./travis/build.sh
+          ./travis/test.sh
